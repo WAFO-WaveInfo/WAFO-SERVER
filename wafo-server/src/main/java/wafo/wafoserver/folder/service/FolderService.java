@@ -21,13 +21,7 @@ public class FolderService {
     @Transactional
     public FolderCreateResponse create(FolderCreateRequest folderCreateRequest) {
 
-        // Dummy User
-        Long userId = userRepository.save(new User("test@wafo.io", "gildong", "gildongNickname"));
-
-        // User user = userRepository.findById(folderCreateRequest.getUserId()).get();
-
-        // Use Dummy User
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(folderCreateRequest.getUserId()).get();
 
         Folder folder = Folder.create(
                 new CreateFolderDto(
@@ -35,6 +29,6 @@ public class FolderService {
                 )
         );
 
-        return new FolderCreateResponse(folder.getName(),user.getNickname());
+        return new FolderCreateResponse(folder.getName(), user.getNickname());
     }
 }
