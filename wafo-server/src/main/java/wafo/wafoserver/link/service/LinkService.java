@@ -17,6 +17,8 @@ import wafo.wafoserver.link.repository.LinkRepository;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class LinkService {
+    private static final Long DEFAULT_FOLDER_ID = 1L;
+
     private final LinkRepository linkRepository;
     private final UserRepository userRepository;
     private final FolderRepository folderRepository;
@@ -25,7 +27,7 @@ public class LinkService {
     public LinkCreateResponse create(LinkCreateRequest linkCreateRequest) {
 
         User user = userRepository.findById(linkCreateRequest.getUserId()).get();
-        Folder folder = folderRepository.findById(linkCreateRequest.getFolderId()).get();
+        Folder folder = folderRepository.findById(DEFAULT_FOLDER_ID).get();
 
         Link link = Link.create(
                 new CreateLinkDto(
@@ -37,11 +39,13 @@ public class LinkService {
                 )
         );
 
+        linkRepository.save(link);
+
         return new LinkCreateResponse(
                 link.getUrl(),
                 link.getTitle(),
                 link.getFavicon_url(),
-                link.getFolder()
+                link.getFolder().getId()
         );
     }
 }

@@ -10,5 +10,5 @@ public class LinkCreateResponse {
     private final String url;
     private final String title;
     private final String favicon_url;
-    private final Folder folder;
+    private final Long folder_id;
 }
