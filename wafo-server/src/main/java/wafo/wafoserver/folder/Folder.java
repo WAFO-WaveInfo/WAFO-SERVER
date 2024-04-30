@@ -1,5 +1,6 @@
 package wafo.wafoserver.folder;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,11 +35,17 @@ public class Folder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "folder")
+    @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL)
     private List<Link> links = new ArrayList<>();
 
     public Folder(String name) {
         this.name = name;
+    }
+
+    // temp constructor
+    public Folder(String name, User user) {
+        this.name = name;
+        this.user = user;
     }
 
     /**

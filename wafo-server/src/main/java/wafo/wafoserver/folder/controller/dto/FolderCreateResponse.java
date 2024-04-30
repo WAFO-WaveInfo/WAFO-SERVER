@@ -7,5 +7,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FolderCreateResponse {
     private final String name;
-    private final String userName;
+    private final String nickname;
 }

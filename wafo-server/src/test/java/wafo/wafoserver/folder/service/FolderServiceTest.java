@@ -27,10 +27,11 @@ class FolderServiceTest {
     public void 폴더생성() throws Exception {
         //given
         User user = userRepository.findById(1L).get();
+
         //when
         FolderCreateResponse folderCreateResponse = folderService.create(
                 new FolderCreateRequest(user.getName(), user.getId()));
         //then
-        assertEquals("testUser1", folderCreateResponse.getUserName());
+        assertEquals("testUser1", folderCreateResponse.getNickname());
     }
 }
