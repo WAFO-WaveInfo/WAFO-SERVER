@@ -38,8 +38,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Folder> folders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
-    private Link link;
+    @OneToMany(mappedBy = "user")
+    private List<Link> links;
 
     public User(String email, String name, String nickname) {
         this.email = email;
