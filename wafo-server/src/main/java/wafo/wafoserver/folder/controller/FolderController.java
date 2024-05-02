@@ -25,5 +25,4 @@ public class FolderController {
     public Result create(@RequestBody FolderCreateRequest folderCreateRequest) {
         return new Result(folderService.create(folderCreateRequest));
     }
-
 }

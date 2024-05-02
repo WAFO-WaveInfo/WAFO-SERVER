@@ -31,6 +31,8 @@ public class Link {
     @Column(nullable = false)
     private String title;
 
+    private LinkStatus linkStatus;
+
     @Column(nullable = false)
     private String favicon_url;
 
