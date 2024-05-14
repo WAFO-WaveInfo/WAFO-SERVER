@@ -31,10 +31,12 @@ public class Link {
     @Column(nullable = false)
     private String title;
 
+    private LinkStatus linkStatus;
+
     @Column(nullable = false)
     private String favicon_url;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -42,16 +44,21 @@ public class Link {
     @JoinColumn(name = "folder_id")
     private Folder folder;
 
-    public Link(final User user, final String url, final String title, final String favicon_url) {
-        this.user = user;
+    public Link(final String url, final String title, final String favicon_url) {
         this.url = url;
         this.title = title;
         this.favicon_url = favicon_url;
+        this.linkStatus = LinkStatus.NORMAL;
     }
 
     /**
      * 연관관계 편의 메서드
      */
+    private void registerUser(final User user) {
+        this.user = user;
+        user.getLinks().add(this);
+    }
+
     private void registerFolder(final Folder folder) {
         this.folder = folder;
         folder.getLinks().add(this);
@@ -62,12 +69,11 @@ public class Link {
      */
     public static Link create(CreateLinkDto linkDto) {
         Link link = new Link(
-                linkDto.getUser(),
                 linkDto.getUrl(),
                 linkDto.getTitle(),
                 linkDto.getFavicon_url()
         );
-
+        link.registerUser(linkDto.getUser());
         link.registerFolder(linkDto.getFolder());
 
         return link;
