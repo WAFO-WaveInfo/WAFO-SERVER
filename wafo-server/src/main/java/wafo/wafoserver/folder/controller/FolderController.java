@@ -2,6 +2,7 @@ package wafo.wafoserver.folder.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import wafo.wafoserver.folder.service.FolderService;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FolderController {
     private final UserRepository userRepository;
     private final FolderRepository folderRepository;
